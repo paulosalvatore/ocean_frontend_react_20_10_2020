@@ -2,15 +2,20 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 
-function Square(props) {
-    return <button className="square">
-        {props.value}
-    </button>;
+class Square extends React.Component {
+    handleClick() {
+        alert(0);
+    }
+
+    render() {
+        return <button className="square" onClick={this.handleClick}>
+        </button>;
+    }
 }
 
 class Board extends React.Component {
     renderSquare(i) {
-        return <Square value={i}/>
+        return <Square/>
     }
 
     render() {
