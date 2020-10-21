@@ -2,49 +2,15 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 
-class Square extends React.Component {
-    // Estado do meu componente
-    // State -> Serve para guardar informações do componente
-
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            move: "X"
-            /*
-            "chave": "valor",
-            "nome": "Paulo",
-            "idade": 10,
-            "vivo": true,
-            "filmes": ["Senhor dos Anéis", "Harry Potter"],
-            "numeros": [1, 2, 3, 4, 5],
-            "vivos": [true, false, true, true],
-            "documentos": {
-                "cpf": "123.542.555-55",
-                "rg": "33.333.333-5"
-            }
-            */
-        };
-    }
-
-    handleClick() {
-        console.log(this);
-
-        this.setState(
-            { move: "O" }
-        )
-    }
-
-    render() {
-        return <button className="square" onClick={() => this.handleClick()}>
-            {this.state.move}
-        </button>;
-    }
+function Square(props) {
+    return <button className="square" onClick={props.onClick}>
+        {props.move}
+    </button>;
 }
 
 class Board extends React.Component {
     renderSquare(i) {
-        return <Square value={i}/>
+        return <Square value={i} onClick={() => this.props.onClick(i)}/>
     }
 
     render() {
@@ -69,11 +35,44 @@ class Board extends React.Component {
 }
 
 class Game extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            squares: Array(9).fill(null),
+            nextMove: "X"
+        };
+
+        console.log(this.state);
+    }
+
+    handleClick(i) {
+        console.log('handleClick - Game', i);
+
+        /*let move = "";
+        let nextMove = "";
+        
+        if (this.state.nextMove == "X") {
+            move = "X";
+            nextMove = "O";
+        } else {
+            move = "O";
+            nextMove = "X";
+        }
+
+        this.setState(
+            {
+                move: move,
+                nextMove: nextMove
+            }
+        )*/
+    }
+
     render() {
         return (
             <div className="game">
                 <div className="game-board">
-                    <Board/>
+                    <Board onClick={(i) => this.handleClick(i)}/>
                 </div>
 
                 <div className="game-info">
